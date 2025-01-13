@@ -1,17 +1,17 @@
 const db = require("./db");
 
- async function getPhoto(){
+ async function getPhotos(){
     const rows = await db.query(`SELECT * FROM photo`)
     return rows?rows:[];
 }
 
-async function  getPhotoById(id) {
+async function  getPhotosById(id) {
     const rows = await db.query(`SELECT * FROM photo WHERE id = ?`, [id]);
     return rows?rows[0]:{};
     
 }
 
-async function createPhoto(photo) {
+async function createPhotos(photo) {
     const result = await db.query(`INSERT INTO photo (title, artist, year, type, image_url) VALUES (?, ?, ?, ?, ?)`,
         [photo.title, photo.artist, photo.year, photo.type, photo.image_url]
     );
@@ -22,7 +22,7 @@ async function createPhoto(photo) {
     return { message };
 }
 
-async function updatePhoto(id, photo) {
+async function updatePhotos(id, photo) {
     const result = await db.query(`UPDATE photo SET title = ?, artist = ?, year = ?, type = ?, image_url = ? WHERE id = ?`,
         [photo.title, photo.artist, photo.year, photo.type, photo.image_url, id]
     );
@@ -33,7 +33,7 @@ async function updatePhoto(id, photo) {
     return { message };
 }
 
-async function deletePhoto(id) {
+async function deletePhotos(id) {
     const result = await db.query(`DELETE FROM photo WHERE id = ?`, [id]
 
     );
@@ -45,18 +45,20 @@ async function deletePhoto(id) {
 }
 
 
-async function patchPhoto(id, photo) {
+async function patchPhotos(id, photo) {
     let fields = Object.keys(photo).map((k) => `${k} = ?`).join(', ');
     let updateValues = Object.values(photo);
+    updateValues.push(id);
+    
 
     
 }
 
 module.exports = {
-    getPhoto,
-    getPhotoById,
-    createPhoto,
-    updatePhoto,
-    deletePhoto,
-    patchPhoto
+    getPhotos,
+    getPhotosById,
+    createPhotos,
+    updatePhotos,
+    deletePhotos,
+    patchPhotos
 }

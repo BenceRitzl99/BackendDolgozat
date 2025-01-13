@@ -4,7 +4,7 @@ const photo = require('../services/photos');
 
 router.get('/', async (req, res, next) => {
     try{
-        res.json(await photo.getPhoto());
+        res.json(await photo.getPhotos());
     }
     catch(err){
         next(err);
@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
     try{
-        res.json(await photo.getPhotoById(req.params.id));
+        res.json(await photo.getPhotosById(req.params.id));
     }
     catch(err){
         next(err);
@@ -22,15 +22,16 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try{
-        res.json(await photo.createPhoto(req.body));
+        res.json(await photo.createPhotos(req.body));
     }
     catch(err){
+        next(err);
     }
 });
 
 router.put('/:id', async (req, res, next) => {
     try{
-        res.json(await photo.updatePhoto(req.params.id, req.body));
+        res.json(await photo.updatePhotos(req.params.id, req.body));
     }
     catch(err){
         next(err);
@@ -39,7 +40,7 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
     try{
-        res.json(await photo.deletePhoto(req.params.id));
+        res.json(await photo.deletePhotos(req.params.id));
     }
     catch(err){
         next(err);
@@ -48,7 +49,7 @@ router.delete('/:id', async (req, res, next) => {
 
 router.patch('/:id', async (req, res, next) => {
     try{
-        res.json(await photo.patchPhoto(req.params.id, req.body));
+        res.json(await photo.patchPhotos(req.params.id, req.body));
     }
     catch(err){
         next(err);
